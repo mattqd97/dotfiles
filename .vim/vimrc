@@ -1,0 +1,257 @@
+ " Mattthew Davis Vim Setup
+ 
+autocmd FileType c,cpp set softtabstop=8 shiftwidth=8 expandtab
+autocmd FileType python set softtabstop=4 shiftwidth=4 expandtab
+
+" Switch from unsaved buffers
+set hidden
+
+" " Command line completion
+" set wildmenu
+ 
+" Show partial commands on last line of screen
+set showcmd
+
+" Highlight searches (use <C-L> to temporarily turn off highlighting; see the
+" mapping of <C-L> below)
+set hlsearch
+
+" Makes search act like search in modern browsers
+set incsearch 
+
+" Line numbers
+set number
+
+" colo desert
+" colo peachpuff
+colo zellner 
+syntax on
+
+" Use case insensitive search, except when using capital letters
+set ignorecase
+set smartcase
+
+" When opening a new line and no filetype-specific indenting is enabled, keep
+" the same indent as the line you're currently on. Useful for READMEs, etc.
+set autoindent
+" set cindent
+
+" Display the cursor position on the last line of the screen or in the status
+" line of a window
+set ruler
+
+" Set the command window height to 2 lines, to avoid many cases of having to
+" "press <Enter> to continue"
+set cmdheight=2
+ 
+" Display line numbers on the left
+set number
+
+" Show matching brackets when text indicator is over them
+set showmatch 
+" How many tenths of a second to blink when matching brackets
+" set mat=2
+
+" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
+map <space> /
+map <c-space> ?
+
+" Add whitespace character things so easier to see whitespace
+set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
+
+" With a map leader it's possible to do extra key combinations
+" like <leader>w saves the current file
+let mapleader = ","
+
+" Toggle paste mode on and off
+map <leader>pp :setlocal paste!<cr>
+
+" Map <C-L> (redraw screen) to also turn off search highlighting until the
+" next search
+nnoremap <C-L> :nohl<CR><C-L>
+
+" F3: Toggle list (display unprintable characters).
+nnoremap <leader>oo :set list!<CR>
+
+" Toggles line numbers
+:nmap <leader>ii :set invnumber<CR>
+
+" Insert line without insert mode
+" nmap <S-Enter> O<Esc>
+" nmap <CR> o<Esc>
+
+" Compelte Closing Brakets
+:inoremap {<CR> {<CR>}<Esc>ko
+" :inoremap ( ()<Esc>i This is a horrible bind
+:inoremap <C-f> <Esc>/[)}"'\]>]<CR>:nohl<CR>a
+
+" Move without arrow keys
+" In insert or command mode, move normally by using Ctrl
+" inoremap <C-h> <Left>
+" inoremap <C-j> <Down>
+" inoremap <C-k> <Up>
+" inoremap <C-l> <Right>
+" cnoremap <C-h> <Left>
+" cnoremap <C-j> <Down>
+" cnoremap <C-k> <Up>
+" cnoremap <C-l> <Right>
+
+""""""""""""""""""""""""""""""
+" => Plugins
+""""""""""""""""""""""""""""""
+" Automatically install vim-plug if not installed
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+" Using vim-plug
+call plug#begin('~/.vim/plugged')
+
+" Nerdtree
+Plug 'scrooloose/nerdtree'
+
+" Comment toggling, use gcc for single line
+Plug 'https://tpope.io/vim/commentary.git'
+
+" Auto compeletion
+Plug 'Valloric/YouCompleteMe'
+
+" Lightline
+Plug 'itchyny/lightline.vim'
+
+" Vim Fugitive (for github stuff)
+Plug 'tpope/vim-fugitive'
+
+" Cscope Key Map
+Plug 'dr-kino/cscope-maps'
+
+" FZF
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+
+call plug#end()
+
+""""""""""""""""""""""""""""""
+" => Nerdtree stuff
+""""""""""""""""""""""""""""""
+" Autostart nerdtree
+" autocmd vimenter * NERDTree
+
+" Togge
+map <C-n> :NERDTreeToggle<CR>
+
+""""""""""""""""""""""""""""""
+" => MUComplete stuff
+""""""""""""""""""""""""""""""
+set completeopt+=menuone
+
+" Completion at startup
+" let g:mucomplete#enable_auto_at_startup = 1
+
+""""""""""""""""""""""""""""""
+" => YouCompleteMe
+""""""""""""""""""""""""""""""
+" let g:ycm_min_num_of_chars_for_completion=1
+" let g:ycm_confirm_extra_conf=0
+" let g:ycm_autoclose_preview_window_after_completion = 1 
+" let g:ycm_always_populate_location_list = 1
+" nnoremap <F5>           :YcmForceCompileAndDiagnostics<CR>
+" nnoremap <leader>gic    :YcmCompleter GoToInclude<CR>
+" nnoremap <leader>gdc    :YcmCompleter GoToDeclaration<CR>
+" nnoremap <C-\>    	:YcmCompleter GoToDefinition<CR>
+" nnoremap <leader>gip    :YcmCompleter GoToImprecise<CR>
+nnoremap <leader>f      :YcmCompleter FixIt<CR>
+" nnoremap <leader>n 	:lnext<CR>
+" Code navigation with Ctrl-] , use Ctrl-O to get back to previous location
+
+""""""""""""""""""""""""""""""
+" => Lightline stuff
+""""""""""""""""""""""""""""""
+if !has('gui_running')
+  set t_Co=256
+endif
+
+let g:lightline = {
+      \ 'colorscheme': 'landscape',
+      \ }
+""""""""""""""""""""""""""""""
+" => Status line
+""""""""""""""""""""""""""""""
+" Always show the status line
+set laststatus=2
+
+" Format the status line
+" set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
+
+""""""""""""""""""""""""""""""
+" => CTags stuff
+""""""""""""""""""""""""""""""
+set tags=tags;/
+
+""""""""""""""""""""""""""""""
+" => Cscope stuff
+""""""""""""""""""""""""""""""
+cs add $CSCOPE_DB
+set cscopetag&
+
+""""""""""""""""""""""""""""""
+" => fzf binds 
+""""""""""""""""""""""""""""""
+nnoremap <leader>ll :FZF<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Helper functions
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Returns true if paste mode is enabled
+function! HasPaste()
+    if &paste
+        return 'PASTE MODE  '
+    endif
+    return ''
+endfunction
+
+" Don't close window, when deleting a buffer
+command! Bclose call <SID>BufcloseCloseIt()
+function! <SID>BufcloseCloseIt()
+    let l:currentBufNum = bufnr("%")
+    let l:alternateBufNum = bufnr("#")
+
+    if buflisted(l:alternateBufNum)
+        buffer #
+    else
+        bnext
+    endif
+
+    if bufnr("%") == l:currentBufNum
+        new
+    endif
+
+    if buflisted(l:currentBufNum)
+        execute("bdelete! ".l:currentBufNum)
+    endif
+endfunction
+
+function! CmdLine(str)
+    call feedkeys(":" . a:str)
+endfunction 
+
+function! VisualSelection(direction, extra_filter) range
+    let l:saved_reg = @"
+    execute "normal! vgvy"
+
+    let l:pattern = escape(@", "\\/.*'$^~[]")
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+    if a:direction == 'gv'
+        call CmdLine("Ack '" . l:pattern . "' " )
+    elseif a:direction == 'replace'
+        call CmdLine("%s" . '/'. l:pattern . '/')
+    endif
+
+    let @/ = l:pattern
+    let @" = l:saved_reg
+endfunction
+
+
+ 
