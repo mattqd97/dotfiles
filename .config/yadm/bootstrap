@@ -1,0 +1,58 @@
+#!/bin/zsh
+
+system_type=$(uname -s)
+
+# Hello
+echo "Bootstrapping now..."
+
+######### Vim Stuff ###########
+# Install Vim-plug plugins
+vim '+PlugUpdate' '+PlugClean!' '+PlugUpdate' '+qall'
+
+######### Tmux Stuff ###########
+# Install stuff for tmux
+sudo npm install -g tmux-mem tmux-cpu
+
+# Reload source for tmux
+tmux source-file ~/.tmux.conf
+
+######### Zsh Stuff ###########
+# Check for oh my zsh/install
+if git clone --depth=1 git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh; then
+	echo -e "Installed OH-MY-ZSH\n"
+fi
+
+# Check for fzf
+if git clone --depth 1 https://github.com/junegunn/fzf.git ~/.config/fzf; then :
+else
+	cd ~/.config/fzf && git pull
+fi
+~/.config/fzf/install --all --key-bindings --completion --no-update-rc --64
+
+# Check for zsh-autosuggestions
+if git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/plugins/zsh-autosuggestions; then :
+else
+	cd ~/.oh-my-zsh/plugins/zsh-autosuggestions && git pull
+fi
+
+# Zsh syntax highlightin
+if git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting; then :
+else
+	cd ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && git pull
+fi
+
+# Check for zsh-completions
+if git clone --depth=1 https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions; then :
+else
+	cd ~/.oh-my-zsh/custom/plugins/zsh-completions && git pull
+fi
+
+# Source zshrc
+source ~/.zshrc
+
+# Get bat??
+if [ "$system_type" = "Debian" ]; then
+	sudo apt install bat
+elif [ "$system_type" = "Darwin" ]; then
+	brew install bat
+fi

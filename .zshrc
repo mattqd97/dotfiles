@@ -91,7 +91,7 @@ plugins=(
 	fzf
 	zsh-completions
 	zsh-autosuggestions
-	# history-substring-search
+	zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -120,6 +120,7 @@ prompt pure
 
 
 # User configuration
+bindkey '^ ' autosuggest-accept
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -128,7 +129,7 @@ prompt pure
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
+  export EDITOR='vim'
 # else
 #   export EDITOR='mvim'
 # fi
@@ -147,3 +148,5 @@ prompt pure
 # source /usr/local/opt/powerlevel9k/powerlevel9k.zsh-theme
 
 alias rmswp='find . -name "*.sw[a-z]" | xargs rm'
+alias fbf="fzf --preview 'bat --style=numbers --color=always {} | head -500'"
+alias sz='source ~/.zshrc'
