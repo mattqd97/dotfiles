@@ -47,6 +47,9 @@ else
 	cd ~/.oh-my-zsh/custom/plugins/zsh-completions && git pull
 fi
 
+# Install pure-theme for zsh
+npm install --global pure-prompt
+
 # Source zshrc
 source ~/.zshrc
 
