@@ -4,7 +4,10 @@
 export TERM="xterm-256color"
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/mattqd97/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
+
+# For fzf
+export FZF_BASE="$HOME/.config/fzf"
 
 # For Pintos Project
 export PINTOS=/Users/mattqd97/Desktop/Spring_2020/OS/os-sp20-matt_and_matthew

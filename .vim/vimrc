@@ -116,7 +116,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'https://tpope.io/vim/commentary.git'
 
 " Auto compeletion
-Plug 'Valloric/YouCompleteMe'
+" Plug 'Valloric/YouCompleteMe'
 
 " Lightline
 Plug 'itchyny/lightline.vim'
