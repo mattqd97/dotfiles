@@ -48,14 +48,21 @@ else
 fi
 
 # Install pure-theme for zsh
-npm install --global pure-prompt
+# npm install --global pure-prompt
 
 # Source zshrc
 source ~/.zshrc
 
 # Get bat??
-if [ "$system_type" = "Debian" ]; then
-	sudo apt install bat
-elif [ "$system_type" = "Darwin" ]; then
-	brew install bat
+if command -v bat; then :
+else
+	if [ -n "$(uname -a | grep Debian)" ]; then
+	#	sudo apt install bat
+		wget https://github.com/sharkdp/bat/releases/download/v0.12.1/bat_0.12.1_amd64.deb
+		sudo dpkg -i bat_0.12.1_amd64.deb
+		rm bat_0.12.1_amd64.deb
+	fi
+	if [ "$system_type" = "Darwin" ]; then
+		brew install bat
+	fi
 fi

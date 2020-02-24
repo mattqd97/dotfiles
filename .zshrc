@@ -10,7 +10,8 @@ export ZSH="$HOME/.oh-my-zsh"
 export FZF_BASE="$HOME/.config/fzf"
 
 # For Pintos Project
-export PINTOS=/Users/mattqd97/Desktop/Spring_2020/OS/os-sp20-matt_and_matthew
+# export PINTOS=/Users/mattqd97/Desktop/Spring_2020/OS/os-sp20-matt_and_matthew
+export PINTOS=$HOME/OS/os-sp20-matt_and_matthew
 export PATH=$PATH:$PINTOS/utils
 # export CSCOPE_DB=$PINTOS/cscope.out
 
