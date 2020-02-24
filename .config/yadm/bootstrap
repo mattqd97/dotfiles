@@ -10,6 +10,16 @@ echo "Bootstrapping now..."
 vim '+PlugUpdate' '+PlugClean!' '+PlugUpdate' '+qall'
 
 ######### Tmux Stuff ###########
+# Check for npm
+if command -v npm; then :
+else
+	echo "You need to install npm\n"
+	exit 1
+fi
+
+# Update npm
+sudo npm install npm@latest -g
+
 # Install stuff for tmux
 sudo npm install -g tmux-mem tmux-cpu
 
@@ -48,7 +58,8 @@ else
 fi
 
 # Install pure-theme for zsh
-# npm install --global pure-prompt
+mkdir -p "$HOME/.zsh"
+git clone https://github.com/sindresorhus/pure.git "$HOME/.zsh/pure"
 
 # Source zshrc
 source ~/.zshrc

@@ -154,3 +154,5 @@ bindkey '^ ' autosuggest-accept
 alias rmswp='find . -name "*.sw[a-z]" | xargs rm'
 alias fbf="fzf --preview 'bat --style=numbers --color=always {} | head -500'"
 alias sz='source ~/.zshrc'
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
