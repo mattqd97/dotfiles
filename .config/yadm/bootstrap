@@ -1,22 +1,32 @@
 #!/bin/zsh
 
 system_type=$(uname -s)
+downloads='npm tmux curl'
 
 # Hello
 echo "Bootstrapping now..."
+
+######### Download stuff ###########
+# Check for npm
+if command -v npm; then :
+else
+	if [ -n "$(uname -a | grep Debian)" ]
+	then
+		sudo apt-get -y install $downloads
+	elif [ -n "$(uname -a | grep Arch)" ]
+	then
+		pacman -S $downloads
+	else
+		echo "You need to install npm\n"
+		exit 1
+	fi
+fi
 
 ######### Vim Stuff ###########
 # Install Vim-plug plugins
 vim '+PlugUpdate' '+PlugClean!' '+PlugUpdate' '+qall'
 
 ######### Tmux Stuff ###########
-# Check for npm
-if command -v npm; then :
-else
-	echo "You need to install npm\n"
-	exit 1
-fi
-
 # Update npm
 sudo npm install npm@latest -g
 
@@ -63,6 +73,9 @@ git clone https://github.com/sindresorhus/pure.git "$HOME/.zsh/pure"
 
 # Source zshrc
 source ~/.zshrc
+
+# Set zsh to shell
+chsh -s $(which zsh)
 
 # Get bat??
 if command -v bat; then :
