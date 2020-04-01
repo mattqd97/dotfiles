@@ -21,6 +21,9 @@ cd
 yadm clone https://github.com/mattqd97/dotfiles.git
 ```
 4. If on linux, put boostrap in ~/.yadm
+```
+cp ~/.config/yadm/bootstrap ~/.yadm/
+```
 5. Run bootstrap
 ```
 yadm bootstrap
