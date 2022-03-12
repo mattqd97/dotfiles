@@ -1,7 +1,11 @@
- " Mattthew Davis Vim Setup
+" Mattthew Davis Vim Setup
  
-autocmd FileType c,cpp set softtabstop=8 shiftwidth=8 expandtab
+autocmd FileType c,cpp,asm set softtabstop=4 shiftwidth=4 expandtab
 autocmd FileType python set softtabstop=4 shiftwidth=4 expandtab
+autocmd FileType sh,bash set softtabstop=4 shiftwidth=4 expandtab
+
+" Auto remove whitespace
+autocmd FileType c,cpp,python autocmd BufWritePre <buffer> %s/\s\+$//e
 
 " Switch from unsaved buffers
 set hidden
@@ -23,9 +27,12 @@ set incsearch
 set number
 
 " colo desert
-" colo peachpuff
-colo zellner 
+colo peachpuff
+" colo zellner 
 syntax on
+set hlsearch
+hi Search ctermbg=LightYellow
+hi Search ctermfg=Red
 
 " Use case insensitive search, except when using capital letters
 set ignorecase
@@ -53,6 +60,7 @@ set showmatch
 " Weird delete thing
 set backspace=indent,eol,start
 
+
 " How many tenths of a second to blink when matching brackets
 " set mat=2
 
@@ -79,6 +87,12 @@ nnoremap <leader>oo :set list!<CR>
 
 " Toggles line numbers
 :nmap <leader>ii :set invnumber<CR>
+
+" Delete to blackhole register
+nnoremap <leader>d "_d
+
+" pasting with a
+nnoremap <leader>aa :let @a=@""<CR>
 
 " Insert line without insert mode
 " nmap <S-Enter> O<Esc>
@@ -120,7 +134,10 @@ Plug 'scrooloose/nerdtree'
 Plug 'https://tpope.io/vim/commentary.git'
 
 " Auto compeletion
-Plug 'Valloric/YouCompleteMe'
+" Plug 'Valloric/YouCompleteMe'
+
+" Syntastic
+" Plug 'vim-syntastic/syntastic'
 
 " Lightline
 Plug 'itchyny/lightline.vim'
@@ -128,11 +145,15 @@ Plug 'itchyny/lightline.vim'
 " Vim Fugitive (for github stuff)
 Plug 'tpope/vim-fugitive'
 
+" gutentags
+Plug 'ludovicchabant/vim-gutentags'
+
 " Cscope Key Map
-Plug 'dr-kino/cscope-maps'
+" Plug 'dr-kino/cscope-maps'
 
 " FZF
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf'
 
 call plug#end()
 
@@ -171,9 +192,25 @@ nnoremap <leader>n 	:lnext<CR>
 " Let clangd fully control code completion
 let g:ycm_clangd_uses_ycmd_caching = 0
 " Use installed clangd, not YCM-bundled clangd which doesn't get updates.
-let g:ycm_clangd_binary_path = exepath("clangd")
+" let g:ycm_clangd_binary_path = exepath("clangd")
 
 " Code navigation with Ctrl-] , use Ctrl-O to get back to previous location
+
+""""""""""""""""""""""""""""""
+" => syntastic
+""""""""""""""""""""""""""""""
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_c_config_file = '/home/madavis/firmware/.syntastic_c_config'
+let g:syntastic_c_remove_include_errors = 1
+
+" let g:syntastic_c_include_dirs = ['/home/madavis/firmware/EFC/include', '/home/madavis/firmware/common/include', '/home/madavis/firmware/EFC/hal/belmar/regs/include', '/home/madavis/firware/EFC/hal/harding/regs/include']
 
 """"""""""""""""""""""""""""""
 " => Lightline stuff
@@ -206,9 +243,20 @@ cs add $CSCOPE_DB
 set cscopetag&
 
 """"""""""""""""""""""""""""""
-" => fzf binds 
+" => fzf binds (ie the most useful shit in the world)
 """"""""""""""""""""""""""""""
 nnoremap <leader>ll :FZF<CR>
+nnoremap <leader>ff :GFiles<CR>
+nnoremap <leader>b  :Buffers<CR>
+" Empty value to disable preview window altogether
+let g:fzf_preview_window = ''
+
+command! -bang -nargs=* GGrep
+  \ call fzf#vim#grep(
+  \   'git grep --line-number -- '.shellescape(<q-args>), 0,
+  \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
+
+nnoremap <leader>gg :GGrep<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions

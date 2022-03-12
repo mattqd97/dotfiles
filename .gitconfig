@@ -2,6 +2,27 @@
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	unstage = reset HEAD --
 	au = add -u
+	aa = add -A
 	lc = diff HEAD~1
+	ane = commit --amend --no-edit
+	st = status
+	co = checkout
+	am = commit
+	ca = commit --amend
+	uncommit = reset --soft HEAD^
+	fix = commit --fixup
+	rash = rebase origin/master -i --autosquash
+	rc = rebase --continue
+	cp = cherry-pick
 [credential]
 	helper = store
+[core]
+	editor = vim
+[color]
+	ui = auto
+[diff]
+	tool = vimdiff
+[merge]
+	tool = vimdiff
+[pull]
+	rebase = true
