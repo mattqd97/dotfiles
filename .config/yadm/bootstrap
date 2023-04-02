@@ -47,7 +47,7 @@ if git clone --depth 1 https://github.com/junegunn/fzf.git ~/.config/fzf; then :
 else
 	cd ~/.config/fzf && git pull
 fi
-~/.config/fzf/install --all --key-bindings --completion --no-update-rc --64
+~/.config/fzf/install --all --key-bindings --completion --no-update-rc
 
 # Check for zsh-autosuggestions
 if git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/plugins/zsh-autosuggestions; then :
