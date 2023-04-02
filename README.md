@@ -11,7 +11,11 @@ Picture of setup:
 - zsh  
 
 ## Installation
-1. Install [yadm](https://yadm.io/docs/install)
+1. Install [yadm](https://yadm.io/docs/install) and npm
+```
+sudo apt install yadm
+sudo apt install -y npm
+```
 2. cd to home directory
 ```
 cd
