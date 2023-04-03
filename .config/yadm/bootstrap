@@ -27,19 +27,23 @@ fi
 vim '+PlugUpdate' '+PlugClean!' '+PlugUpdate' '+qall'
 
 ######### Tmux Stuff ###########
+# DO NOT APT INSTALL NPM
+
 # Update npm
-sudo npm install npm@latest -g
+# sudo npm install npm@latest -g
 
 # Install stuff for tmux
-sudo npm install -g tmux-mem tmux-cpu
+# sudo npm install -g tmux-mem tmux-cpu
 
 # Reload source for tmux
 tmux source-file ~/.tmux.conf
 
 ######### Zsh Stuff ###########
 # Check for oh my zsh/install
-if git clone --depth=1 git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh; then
-	echo -e "Installed OH-MY-ZSH\n"
+if [ -d ~/.oh-my-zsh ]; then
+	echo "oh-my-zsh is already installed, skipping"
+ else
+ 	echo "oh-my-zsh is not installed"
 fi
 
 # Check for fzf
