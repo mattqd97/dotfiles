@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 system_type=$(uname -s)
-downloads='npm tmux curl'
+downloads='dtmux curl'
 
 # Hello
 echo "Bootstrapping now..."
