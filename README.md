@@ -13,8 +13,7 @@ Picture of setup:
 ## Installation
 1. Install [yadm](https://yadm.io/docs/install) and npm
 ```
-sudo apt install yadm
-sudo apt install -y npm
+sudo apt install -y yadm npm vim zsh
 ```
 2. cd to home directory
 ```
