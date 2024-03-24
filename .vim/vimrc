@@ -26,9 +26,6 @@ set incsearch
 " Line numbers
 set number
 
-" colo desert
-colo peachpuff
-" colo zellner 
 syntax on
 set hlsearch
 hi Search ctermbg=LightYellow
@@ -155,6 +152,8 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf'
 
+Plug 'embark-theme/vim', { 'as': 'embark', 'branch': 'main' }
+
 call plug#end()
 
 """"""""""""""""""""""""""""""
@@ -222,6 +221,13 @@ endif
 let g:lightline = {
       \ 'colorscheme': 'landscape',
       \ }
+
+""""""""""""""""""""""""""""""
+" => Colorscheme settings
+""""""""""""""""""""""""""""""
+set termguicolors
+colo embark
+
 """"""""""""""""""""""""""""""
 " => Status line
 """"""""""""""""""""""""""""""
